@@ -165,7 +165,7 @@ class SubmissionController extends Controller
             'agency' => 'required|string|max:128',
             'phone-number' => 'required|string|max:32',
             'goal' => 'required|string|max:2048',
-            'start-date' => 'required|date|after:today',
+            'start-date' => 'required|date|after:'.Carbon::today()->format('Y-m-d'),
             'proposal-link' => 'required|mimetypes:application/pdf',
             'cover-letter-link' => 'required|mimetypes:application/pdf',
         ]);

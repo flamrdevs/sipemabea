@@ -35,10 +35,6 @@
           <div class="d-flex justify-content-center">
 
             <div class="p-4 p-md-5 bg-white rounded-3 shadow flex-grow-1">
-    
-              <div class="my-2 text-center p-2">
-                <h1>@lang('typography.application-flow')</h1>
-              </div>
 
               <div class="p-1">
                 <img class="w-100 rounded-3" src="{{ asset('images/alur.png') }}" alt="alur pengajuan">

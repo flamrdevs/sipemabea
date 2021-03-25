@@ -14,7 +14,7 @@
 // Guest Route
 Route::group(
     [
-        'middleware' => 'guest'
+        // 'middleware' => 'guest'
     ],
     function() {
         Route::view('/', 'welcome')->name('welcome');

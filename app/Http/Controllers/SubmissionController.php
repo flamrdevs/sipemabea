@@ -163,7 +163,7 @@ class SubmissionController extends Controller
             'email' => 'required|email|max:128',
             'person-in-charge' => 'required|string|max:64',
             'agency' => 'required|string|max:128',
-            'phone-number' => 'required|string|max:32',
+            'phone-number' => 'required|string|max:32|regex:/^\+(?:[0-9] ?){6,14}[0-9]$/',
             'goal' => 'required|string|max:2048',
             'start-date' => 'required|date|after:'.Carbon::today()->format('Y-m-d'),
             'proposal-link' => 'required|mimetypes:application/pdf',

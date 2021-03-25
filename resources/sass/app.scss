@@ -1,0 +1,21 @@
+// @import "./mdb5-themed.css";
+
+// scss-docs-start import font
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+// scss-docs-end import font
+
+// scss-docs-start import bootstrap
+// Customization
+@import "variables";
+
+// Core
+@import "~bootstrap/scss/bootstrap";
+// scss-docs-end import boostrap
+
+// scss-docs-start import fontawesome
+@import "~@fortawesome/fontawesome-free/css/all.css";
+// scss-docs-end import fontawesome
+
+// scss-docs-start import fontawesome
+@import "styled";
+// scss-docs-end import fontawesome

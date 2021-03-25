@@ -1,0 +1,67 @@
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: "Nunito", sans-serif;
+$font-size-base: 1rem;
+$line-height-base: 1.6;
+
+// Colors
+$white: #fff;
+$gray-100: #f9f9fb;
+$gray-200: #dfe3ea;
+$gray-300: #c5cdd9;
+$gray-400: #abb7c9;
+$gray-500: #92a1b8;
+$gray-600: #788ba7;
+$gray-700: #607594;
+$gray-800: #50617a;
+$gray-900: #3f4c61;
+$black: #000;
+
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66d9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+
+// Theme colors
+$primary: #02275d;
+$primary-light: #033c8f;
+$primary-dark: #01122b;
+$secondary: #ffcb05;
+$secondary-light: #ffd638;
+$secondary-dark: #d1a600;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-900;
+
+$theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark,
+    "primary-light": $primary-light,
+    "primary-dark": $primary-dark,
+    "secondary-light": $secondary-light,
+    "secondary-dark": $secondary-dark,
+    "transparent": transparent,
+);
+
+$border-radius-sm: 0.3rem;
+$border-radius: 0.45rem;
+$border-radius-lg: 0.6rem;
+
+$body-bg: $light;

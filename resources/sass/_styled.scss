@@ -1,0 +1,97 @@
+$styled-duration-fastest: 100ms;
+$styled-duration-fast: 250ms;
+$styled-duration-normal: 400ms;
+$styled-duration-slow: 550ms;
+$styled-duration-slowest: 700ms;
+
+// Animation
+.styled-hover-sm-swing-hor {
+    &:hover {
+        animation: styled-sm-swing-horizontal $styled-duration-normal
+            ease-in-out;
+        animation-iteration-count: 1;
+    }
+}
+
+.styled-hover-sm-swing-ver {
+    &:hover {
+        animation: styled-sm-swing-vertical $styled-duration-normal ease-in-out;
+        animation-iteration-count: 1;
+    }
+}
+
+@keyframes styled-sm-swing-horizontal {
+    33% {
+        transform: translateX(2px);
+    }
+    66% {
+        transform: translateX(-1px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes styled-sm-swing-vertical {
+    33% {
+        transform: translateY(-2px);
+    }
+    66% {
+        transform: translateY(1px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+// Custom Scrollbar
+.styled-scrollbar {
+    &::-webkit-scrollbar {
+        width: 0.5rem;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: $light;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $primary;
+        &:hover {
+            background-color: $secondary;
+        }
+    }
+}
+
+// Hover
+@each $name, $value in $grays {
+    .styled-hover-bg-gray-#{$name} {
+        &:hover {
+            background-color: $value !important;
+        }
+    }
+
+    .styled-hover-color-gray-#{$name} {
+        &:hover {
+            color: $value !important;
+        }
+    }
+}
+
+// Focus
+.styled-focus-box-shadow-none {
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
+// Cursor
+.styled-cursor-default {
+    cursor: default;
+}
+
+// Bootstrap Extends
+@each $name, $size in $grid-breakpoints {
+    .#{$name}-position-absolute {
+        @include media-breakpoint-up(#{$name}) {
+            position: absolute !important;
+        }
+    }
+}

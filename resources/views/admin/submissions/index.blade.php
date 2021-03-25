@@ -56,12 +56,12 @@
                 <td style="width: 4rem">
                   <div class="d-flex gap-2 justify-content-between">
                     @if($submission['status'] === 'processed')
-                      <span class="text-danger">
+                      <span class="text-secondary">
                         <i class="fas fa-clock fa-fw mx-1"></i>
                       </span>
                     @endif
                     <a class="btn btn-outline-info btn-sm p-0 ms-auto styled-hover-sm-swing-ver" href="{{ route('admin.submissions.show', ['id' => $submission['id']]) }}" role="button">
-                      <i class="fas fa-ellipsis-v fa-fw mx-1"></i>
+                      <i class="fas fa-chevron-right fa-fw mx-1"></i>
                     </a>
                   </div>
                 </td>

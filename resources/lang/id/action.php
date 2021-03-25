@@ -22,7 +22,7 @@ return [
 
     // F
     'finish' => 'Selesai',
-    'forgot-password' => 'Lupa kata sandi',
+    'forgot-password' => 'Lupa kata sandi ?',
 
     // H
     'home' => 'Beranda',

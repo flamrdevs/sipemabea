@@ -22,7 +22,7 @@ return [
 
     // F
     'finish' => 'Finish',
-    'forgot-password' => 'Forgot password',
+    'forgot-password' => 'Forgot password ?',
 
     // H
     'home' => 'Home',

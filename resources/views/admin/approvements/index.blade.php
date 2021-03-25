@@ -87,7 +87,7 @@
                       </span>
                     @endif
                     <a class="btn btn-outline-info btn-sm p-0 styled-hover-sm-swing-ver" href="{{ route('admin.approvements.show', ['id' => $submission['id']]) }}" role="button">
-                      <i class="fas fa-ellipsis-v fa-fw mx-1"></i>
+                      <i class="fas fa-chevron-right fa-fw mx-1"></i>
                     </a>
                   </div>
                 </td>

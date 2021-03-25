@@ -11,6 +11,8 @@
 |
 */
 
+Route::view('/color', 'color')->name('color');
+
 // Guest Route
 Route::group(
     [
@@ -21,8 +23,8 @@ Route::group(
         // Route::view('/about', 'about')->name('about');
         // Route::view('/contact', 'contact')->name('contact');
 
-        // Route::get('/register', 'AuthController@showRegisterForm')->name('register');
-        // Route::post('/register', 'AuthController@register');
+        Route::get('/register', 'AuthController@showRegisterForm')->name('register');
+        Route::post('/register', 'AuthController@register');
 
         Route::group(
             ['prefix' => config('global.prefix-admin')],

@@ -93,7 +93,7 @@
                 <div class="day-min-height @if($day['value']['is-selected']) @if($processedCount > 0 || $acceptedCount > 0) bg-white @else bg-light @endif shadow-sm rounded-bl @endif">
                   @if($day['value']['is-selected'])
                     <div class="d-flex justify-content-end mx-0 styled-cursor-default">
-                      <span class="px-2 py-1 @if($day['value']['date']->format('dmy') == Carbon::now()->format('dmy')) bg-secondary @else bg-primary @endif text-light rounded-bl">
+                      <span class="px-2 py-1 fs-5 @if($day['value']['date']->format('dmy') == Carbon::now()->format('dmy')) bg-primary @else styled-bg-gray-400 @endif text-light rounded-bl">
                         {{ $day['value']['date']->format('d') }}
                       </span>
                     </div>
@@ -110,7 +110,7 @@
                               data-index-of-week="{{ $indexOfWeek }}"
                               data-index-of-day="{{ $indexOfDay }}"
                               data-status-type="processed"
-                              class="processed-modal-trigger btn btn-outline-danger btn-sm w-100 border-0 styled-hover-color-gray-100 styled-hover-sm-swing-ver" href="{{ route('admin.submissions', ['date' => $day['value']['date']->format('Y-m-d')]) }}">
+                              class="processed-modal-trigger btn btn-outline-secondary btn-sm w-100 border-0 styled-hover-color-gray-100 styled-hover-sm-swing-ver" href="{{ route('admin.submissions', ['date' => $day['value']['date']->format('Y-m-d')]) }}">
                               <i class="fas fa-clock fa-fw mx-1"></i>
                               <span class="ms-1">{{ $processedCount }}</span>
                             </a>

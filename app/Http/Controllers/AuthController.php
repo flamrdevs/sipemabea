@@ -191,10 +191,11 @@ class AuthController extends Controller
     // POST
     public function resetPassword(Request $request)
     {
+        $regex = 'regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/';
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
-            'password' => 'required|string|min:8|max:16',
-            'password-confirmation' => 'required|string|min:8|max:16|same:password',
+            'password' => 'required|string|min:8|max:16|'.$regex,
+            'password-confirmation' => 'required|string|'.$regex.'|same:password',
             'token' => 'required|string',
         ]);
         if ($validator->fails()) {

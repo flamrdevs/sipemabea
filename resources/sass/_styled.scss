@@ -73,6 +73,14 @@ $styled-duration-slowest: 700ms;
             color: $value !important;
         }
     }
+
+    .styled-bg-gray-#{$name} {
+        background-color: $value !important;
+    }
+
+    .styled-color-gray-#{$name} {
+        color: $value !important;
+    }
 }
 
 // Focus
@@ -84,7 +92,7 @@ $styled-duration-slowest: 700ms;
 
 // Cursor
 .styled-cursor-default {
-    cursor: default;
+    cursor: default !important;
 }
 
 // Bootstrap Extends

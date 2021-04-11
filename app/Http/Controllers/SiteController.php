@@ -23,7 +23,7 @@ class SiteController extends Controller
     public function siteSettings() {
         try {
             $settings = $this->getStaticJson();
-            return view('admin.site', compact('settings'));
+            return view('admin.settings.site', compact('settings'));
         } catch (\Throwable $th) {
             $this->setStaticJson(null);
             return redirect()->route('admin.site');
@@ -45,12 +45,15 @@ class SiteController extends Controller
             'use-google-maps' => 'nullable',
             'use-header' => 'nullable',
             'use-footer' => 'nullable',
+            'template-email-approval-accepted' => 'nullable|string',
+            'template-email-approval-rejected' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // Change "true" is string to true is boolean
         $request['use-facebook'] = json_decode($request['use-facebook']);
         $request['use-twitter'] = json_decode($request['use-twitter']);
         $request['use-instagram'] = json_decode($request['use-instagram']);
@@ -74,30 +77,50 @@ class SiteController extends Controller
             'links' => [
                 'social-media' => [
                     'facebook' => [
-                        'use' => $request['use-facebook'],
+                        'use' => $request['use-facebook'] ?? true,
                         'link' => $request['link-facebook'] ?? config('app.url'),
                     ],
                     'twitter' => [
-                        'use' => $request['use-twitter'],
+                        'use' => $request['use-twitter'] ?? true,
                         'link' => $request['link-twitter'] ?? config('app.url'),
                     ],
                     'instagram' => [
-                        'use' => $request['use-instagram'],
+                        'use' => $request['use-instagram'] ?? true,
                         'link' => $request['link-instagram'] ?? config('app.url'),
                     ],
                     'youtube' => [
-                        'use' => $request['use-youtube'],
+                        'use' => $request['use-youtube'] ?? true,
                         'link' => $request['link-youtube'] ?? config('app.url'),
                     ],
                 ],
                 'google-maps' => [
-                    'use' => $request['use-google-maps'],
+                    'use' => $request['use-google-maps'] ?? true,
                     'link' => $request['link-google-maps'] ?? config('app.url'),
                 ],
             ],
             'ui' => [
-                'header' => $request['use-header'],
-                'footer' => $request['use-footer']
+                'header' => $request['use-header'] ?? true,
+                'footer' => $request['use-footer'] ?? true
+            ],
+            'template' => [
+                'email' => [
+                    'approval' => [
+                        'accepted' => $request['template-email-approval-accepted'] ?? "Hai,
+Selamat !!
+Anda telah diterima Magang di Bea Cukai Jember. Kami dengan senang hati mengundang Anda untuk melaksanakan Magang Praktik Kerja Lapangan di kantor kami.
+Untuk mengonfirmasi tempat Anda di Kantor kami, silakan unduh surat tugas yang kami lampirkan dibawah ini.
+Jika Anda telah berubah pikiran sejak mendaftar dan ingin menolak penerimaan pendaftaran ini, silakan balas email dengan alasan yang jelas sesegera mungkin.
+Sekali lagi, Selamat. Kami akan menghubungi Anda mengenai program terperinci segera.
+Salam hormat
+Tim Bea Cukai Jember",
+                        'rejected' => $request['template-email-approval-rejected'] ?? "Hai,
+Atas nama tim Bea Cukai Jember, kami mengucapkan terima kasih atas minat dan antusiasme Anda dalam mendaftar Magang di kantor kami.
+Sayangnya, kami ingin meminta maaf bahwa kami tidak dapat melanjutkan pendaftaran Anda karena beberapa hal yang tidak memenuhi kualifikasi kami.
+Namun, Anda masih dapat mendaftar sebagai peserta kami lagi. kami membuka lowongan magang lagi di tanggal yang sudah tertera di surat lampiran dan anda dapat mulai mendaftarkan diri seperti langkah diawal.
+Salam hormat
+Tim Bea Cukai Jember"
+                    ]
+                ]
             ]
         ]);
         
@@ -144,6 +167,11 @@ class SiteController extends Controller
     // GET
     public function download($location)
     {
-        return Storage::download(base64_decode($location));
+        $path = base64_decode($location);
+        if (Storage::exists($path)) {
+            return Storage::download($path);
+        } else {
+            abort(404);
+        }
     }
 }

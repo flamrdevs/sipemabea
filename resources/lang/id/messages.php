@@ -3,6 +3,7 @@
 return [
 
     // A
+    'a-confirmation-email-will-be-sent-to' => 'Untuk konfirmasi penerimaan magang akan kami kirimkan ke email :email. harap untuk memeriksa email anda.',
     'accepted' => 'Diterima',
 
     // N
@@ -18,10 +19,10 @@ return [
     // S
     'session:service-error-mail-submission' => 'Kesalahan layanan email',
 
-    'session:success-create-submission' => 'Pengajuan sukses',
+    'session:success-create-submission' => 'Pengajuan berhasil',
     'session:failure-create-submission' => 'Pengajuan gagal',
 
-    'session:success-create-approvement' => 'Persetujuan sukses',
+    'session:success-create-approvement' => 'Persetujuan berhasil',
     'session:failure-create-approvement' => 'Persetujuan gagal',
 
     'session:success-mail-submission' => 'Email berhasil dikirim',
@@ -47,6 +48,7 @@ return [
 
     // T
     'thank-you' => 'Terimakasih',
+    'thank-you-for-register' => 'Terimakasih sudah mendaftar',
     'try-again-later' => 'Coba lagi nanti',
 
     // W

@@ -52,14 +52,14 @@ class AdminController extends Controller
     public function profile()
     {
         $user = User::findOrFail(Auth::user()->id);
-        return view('admin.profile', compact('user'));
+        return view('admin.settings.profile', compact('user'));
     }
 
     // GET
     public function showProfileUpdateForm()
     {
         $user = User::findOrFail(Auth::user()->id);
-        return view('admin.edit', compact('user'));
+        return view('admin.settings.edit', compact('user'));
     }
 
     // PUT
@@ -91,7 +91,7 @@ class AdminController extends Controller
     // GET
     public function showProfileUpdatePasswordForm()
     {
-        return view('admin.edit-password');
+        return view('admin.settings.edit-password');
     }
 
     // PUT
@@ -144,11 +144,21 @@ class AdminController extends Controller
     // GET
     public function schedules(Request $request)
     {
-        $dateQuery = $request->query('date') ?? Carbon::today()->format('Y-m-d');
+        $monthQuery = $request->query('month') ?? Carbon::today()->format('Y-m');
+        $monthGroupType = $request->query('group') ?? "1";
 
-        $submissions = Submission::where('status', '!=', 'rejected')->orWhereNull('status')->get();
+        $allowedMonthGroupType = [
+            '1' => 'created_at',
+            '2' => 'start_date',
+        ];
 
-        $selectedDate = Carbon::parse($dateQuery);
+        $selectedMonthGroupType = $allowedMonthGroupType[$monthGroupType];
+
+        $submissions = Submission::where(function ($query) {
+            $query->where('status', '!=', 'rejected')->orWhereNull('status');
+        })->whereMonth($selectedMonthGroupType, Carbon::parse($monthQuery)->format('m'))->latest()->get();
+
+        $selectedDate = Carbon::parse($monthQuery);
 
         $date = $selectedDate->copy();
 
@@ -186,14 +196,14 @@ class AdminController extends Controller
                         'date-string' => $date->copy()->format('Y-m-d'),
                         'is-selected' => $date->copy()->format('m') == $selectedDate->format('m'),
                         'submissions' => [
-                            'processed' => $submissions->filter(function ($submission) use($date) {
-                                return (Carbon::parse($submission['start_date'])->format('dmY') == $date->copy()->format('dmY')) && ($submission['status'] == 'processed' || is_null($submission['status']));
+                            'processed' => $submissions->filter(function ($submission) use($date, $selectedMonthGroupType) {
+                                return (Carbon::parse($submission[$selectedMonthGroupType])->format('dmY') == $date->copy()->format('dmY')) && ($submission['status'] == 'processed' || is_null($submission['status']));
                             })->values()->map(function ($submission) {
                                 $submission['url'] = route('admin.submissions.show', ['id' => $submission['id']]);
                                 return $submission;
                             }),
-                            'accepted' => $submissions->filter(function ($submission) use($date) {
-                                return (Carbon::parse($submission['start_date'])->format('dmY') == $date->copy()->format('dmY')) && ($submission['status'] == 'accepted');
+                            'accepted' => $submissions->filter(function ($submission) use($date, $selectedMonthGroupType) {
+                                return (Carbon::parse($submission[$selectedMonthGroupType])->format('dmY') == $date->copy()->format('dmY')) && ($submission['status'] == 'accepted');
                             })->values()->map(function ($submission) {
                                 $submission['url'] = route('admin.approvements.show', ['id' => $submission['id']]);
                                 return $submission;
@@ -209,6 +219,6 @@ class AdminController extends Controller
             array_push($month, $thisWeek);
         }
         
-        return view('admin.schedules.index', compact(['month', 'dateQuery', 'totalSubmissionsInMonth']));
+        return view('admin.schedules.index', compact(['month', 'monthQuery', 'monthGroupType', 'totalSubmissionsInMonth']));
     }
 }

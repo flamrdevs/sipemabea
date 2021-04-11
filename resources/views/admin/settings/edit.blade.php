@@ -16,10 +16,11 @@
           @csrf
           @method('PUT')
           
-          <div class="d-grid gap-2 mb-3">
+          <div class="d-grid gap-2 mb-4">
             <h2 class="text-center">@lang('typography.update-profile')</h2>
           </div>
-  
+          
+          {{-- Name --}}
           <div class="mb-3">
             <label for="name" class="form-label">@lang('typography.name')</label>
             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') ?? $user['name'] }}" aria-describedby="name-feedback">
@@ -29,7 +30,8 @@
               </div>
             @enderror
           </div>
-  
+
+          {{-- Email --}}
           <div class="mb-3">
             <label for="email" class="form-label">@lang('typography.email-address')</label>
             <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') ?? $user['email'] }}" aria-describedby="email-feedback">
@@ -40,9 +42,11 @@
             @enderror
           </div>
 
-          <div class="my-3 p-1"></div>
+          {{-- Spacer --}}
+          <div class="mb-3 p-1 p-md-2 p-lg-3"></div>
   
           <div class="mb-1">
+            {{-- Submit Button --}}
             <div class="row">
               <div class="col col-12 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                 <div class="d-grid gap-2 d-lg-flex justify-content-lg-between">
@@ -52,6 +56,7 @@
               </div>
             </div>
           </div>
+
         </form>
       </div>
     </div>

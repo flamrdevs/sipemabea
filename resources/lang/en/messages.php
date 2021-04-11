@@ -3,6 +3,7 @@
 return [
 
     // A
+    'a-confirmation-email-will-be-sent-to' => 'To confirm internship acceptance, we will send it to email :email. please check your email.',
     'accepted' => 'Accepted',
 
     // N
@@ -47,6 +48,7 @@ return [
 
     // T
     'thank-you' => 'Thank you',
+    'thank-you-for-register' => 'Thank you for register',
     'try-again-later' => 'Try again later',
 
     // W

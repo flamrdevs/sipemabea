@@ -178,7 +178,6 @@ class AuthController extends Controller
 
         if ($password_reset->isEmpty()) {
             abort(404);
-            // return redirect()->route('forgot_password');
         } else {
             $data = [
                 'email' => $request['email'],

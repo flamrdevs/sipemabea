@@ -144,6 +144,7 @@ return [
         'confirmed-start-date' => trans('typography.confirmed-start-date'),
         'current-password' => trans('typography.current-password'),
         // E
+        'end-date' => trans('typography.end-date'),
         'email' => trans('typography.email'),
         // G
         'goal' => trans('typography.goal'),
@@ -154,11 +155,14 @@ return [
         'link-instagram' => 'Tautan Instagram',
         'link-youtube' => 'Tautan Youtube',
         'link-google-maps' => 'Tautan Google Maps',
+        // M
+        'member.*' => trans('typography.name'),
         // N
         'name' => trans('typography.name'),
         'new-password' => trans('typography.new-password'),
         'new-password-confirmation' => trans('typography.new-password-confirmation'),
         'no-letter' => trans('typography.no-letter'),
+        'note' => trans('typography.note'),
         // P
         'password' => trans('typography.password'),
         'password-confirmation' => trans('typography.password-confirmation'),

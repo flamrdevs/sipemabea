@@ -24,6 +24,7 @@ return [
     'do-not-have-an-account-yet' => "Don't have an account yet ?",
 
     // E
+    'end-date' => 'End date',
     'email' => 'Email',
     'email-address' => 'Email address',
 
@@ -39,20 +40,25 @@ return [
     'links' => 'Links',
     'login' => 'Login',
 
+    // M
+    'member' => 'Member',
+    'month' => 'Month',
+
     // N
     'name' => 'Name',
     'new' => 'New',
     'new-password' => 'New password',
     'new-password-confirmation' => 'New password confirmation',
     'note' => 'Note',
-    'no-letter' => 'No letter',
     'no-data' => 'No data',
+    'no-name' => 'No name',
 
     // P
     'password' => 'Password',
     'password-confirmation' => 'Password confirmation',
     'person-in-charge' => 'Person in charge',
     'phone-number' => 'Phone number',
+    'preview-email' => 'Email preview',
     'processed' => 'Processed',
     'proposal-file' => 'Proposal file',
 
@@ -65,6 +71,13 @@ return [
     'start-date' => 'Start date',
     'status' => 'Status',
     'submission' => 'Submission',
+    'submission-date' => 'Submission date',
+
+    // T
+    'template' => 'Template',
+    'template-email' => 'Template email',
+    'template-email-approval-accepted' => 'Template accepted approval email',
+    'template-email-approval-rejected' => 'Template rejected approval email',
 
     // U
     'ui-component' => 'User Interface Components',

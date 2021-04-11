@@ -15,7 +15,7 @@
     }
     .day-min-height {
       height: 100% !important;
-      min-height: 7rem !important;
+      min-height: 8rem !important;
     }
     .rounded-bl {
       border-bottom-left-radius: 0.45rem !important;
@@ -28,11 +28,13 @@
 
     @includeIf('shared.components.banner', ['title' => __('action.schedules')])
 
-    <div class="d-flex justify-content-between my-2 py-2 px-3">
+    <div class="d-flex flex-column flex-lg-row justify-content-between my-2 py-2 px-3">
       <div class="flex-grow-1 d-flex justify-content-center align-items-center">
         <span id="month-year-label" class="fs-1"></span>
       </div>
       <div class="d-flex justify-content-between align-items-center">
+        <div class="ms-auto"></div>
+        {{-- Total In This Month --}}
         <div class="d-flex justify-content-between align-items-center me-2">
           <div class="btn-group">
             <button type="button" class="btn btn-outline-primary dropdown-toggle styled-focus-box-shadow-none" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
@@ -55,12 +57,23 @@
             </ul>
           </div>
         </div>
+        {{-- Group Type --}}
+        <div class="d-flex justify-content-between align-items-center me-2">
+          <form id="group-filter-form" action="{{ route('admin.schedules') }}">
+            <input type="month" name="month" value="{{ Carbon::parse($monthQuery)->format('Y-m') }}" style="display: none">
+            <select class="form-select bg-light border-primary" aria-label="Group Type Select" id="group-filter-action" name="group">
+              <option value="1" @if($monthGroupType == "1") selected @endif>@lang('typography.submission-date')</option>
+              <option value="2" @if($monthGroupType == "2") selected @endif>@lang('typography.start-date')</option>
+            </select>
+          </form>
+        </div>
+        {{-- Month Navigator --}}
         <div class="d-flex justify-content-center align-items-center">
           <div class="btn-group">
-            <a href="{{ route('admin.schedules', ['date' => Carbon::parse($dateQuery)->subMonth()->format('Y-m-d')]) }}" class="btn btn-outline-primary">
+            <a href="{{ route('admin.schedules', ['month' => Carbon::parse($monthQuery)->subMonth()->format('Y-m'), 'group' => $monthGroupType]) }}" class="btn btn-outline-primary">
               <i class="fas fa-chevron-left fa-fw mx-1"></i>
             </a>
-            <a href="{{ route('admin.schedules', ['date' => Carbon::parse($dateQuery)->addMonth()->format('Y-m-d')]) }}" class="btn btn-outline-primary">
+            <a href="{{ route('admin.schedules', ['month' => Carbon::parse($monthQuery)->addMonth()->format('Y-m'), 'group' => $monthGroupType]) }}" class="btn btn-outline-primary">
               <i class="fas fa-chevron-right fa-fw mx-1"></i>
             </a>
           </div>
@@ -110,7 +123,7 @@
                               data-index-of-week="{{ $indexOfWeek }}"
                               data-index-of-day="{{ $indexOfDay }}"
                               data-status-type="processed"
-                              class="processed-modal-trigger btn btn-outline-secondary btn-sm w-100 border-0 styled-hover-color-gray-100 styled-hover-sm-swing-ver" href="{{ route('admin.submissions', ['date' => $day['value']['date']->format('Y-m-d')]) }}">
+                              class="processed-modal-trigger btn btn-outline-secondary btn-sm w-100 border-0 styled-hover-color-gray-100 styled-hover-sm-swing-ver" href="{{ route('admin.submissions', ['month' => $day['value']['date']->format('Y-m-d')]) }}">
                               <i class="fas fa-clock fa-fw mx-1"></i>
                               <span class="ms-1">{{ $processedCount }}</span>
                             </a>
@@ -122,7 +135,7 @@
                               data-index-of-week="{{ $indexOfWeek }}"
                               data-index-of-day="{{ $indexOfDay }}"
                               data-status-type="accepted"
-                              class="accepted-modal-trigger btn btn-outline-success btn-sm w-100 border-0 styled-hover-color-gray-100 styled-hover-sm-swing-ver" href="{{ route('admin.approvements', ['date' => $day['value']['date']->format('Y-m-d')]) }}">
+                              class="accepted-modal-trigger btn btn-outline-success btn-sm w-100 border-0 styled-hover-color-gray-100 styled-hover-sm-swing-ver" href="{{ route('admin.approvements', ['month' => $day['value']['date']->format('Y-m-d')]) }}">
                               <i class="fas fa-check fa-fw mx-1"></i>
                               <span class="ms-1">{{ $acceptedCount }}</span>
                             </a>
@@ -143,7 +156,7 @@
 
   <!-- Modal -->
   <div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="listModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-fullscreen-lg-down modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title ps-3 fs-3 fw-bold" id="listModalLabel"></h5>
@@ -167,9 +180,13 @@
 @push('script')
   <script>
     $(document).ready(function () {
-      var dateForLabel = window.dayjs("{{ Carbon::parse($dateQuery)->format('Y-m-d') }}", 'YYYY-MM-DD').format('MMMM, YYYY');
+      var dateForLabel = window.dayjs("{{ Carbon::parse($monthQuery)->format('Y-m-d') }}", 'YYYY-MM-DD').format('MMMM, YYYY');
 
       $('#month-year-label').html(dateForLabel);
+
+      $('#group-filter-action').change(function () { 
+        $('#group-filter-form').submit();
+      });
 
       var month = @json($month);
 
@@ -214,7 +231,7 @@
 
         var day = month[selector.indexOfWeek][selector.indexOfDay]['value'];
         modalData.type = selector.statusType;
-        modalData.date = window.dayjs(day['date-string']).format('DD-MM-YYYY');
+        modalData.date = window.dayjs(day['date-string']).format('dddd, DD MMMM YYYY');
         modalData.data = day['submissions'][selector.statusType];
         modalData.href = selector.href;
       }
@@ -224,12 +241,12 @@
 
         function renderList() {
           modalData.data.forEach(function (item) {
-            var classType = modalData.type == 'accepted' ? 'success' : 'danger';
+            var classType = modalData.type == 'accepted' ? 'success' : 'warning';
 
             var liOpen = '<li class="list-group-item px-1 px-md-3">';
             var liClose = '</li>';
 
-            var aOpen = '<a class="btn btn-outline-' + classType + ' btn-sm w-100 border-0 text-dark styled-hover-color-gray-100 styled-hover-sm-swing-ver" href="' + item.url + '">';
+            var aOpen = '<a class="btn btn-outline-' + classType + ' btn-sm w-100 border-0 text-dark styled-hover-color-gray-900 styled-hover-sm-swing-ver" href="' + item.url + '">';
             var aClose = '</a>';
 
             var person_in_chargeEl = '<div class="d-flex justify-content-start align-items-center fw-bold"><i class="fas fa-user fa-fw me-1"></i>' + item.person_in_charge + '</div>';
@@ -238,9 +255,13 @@
             var emailEl = '<div class="d-flex flex-md-row-reverse justify-content-md-start align-items-center"><i class="fas fa-envelope fa-fw me-1 me-md-0 ms-0 ms-md-1"></i>' + item.email + '</div>';
             var agencyEl = '<div class="d-flex flex-md-row-reverse justify-content-md-start align-items-center"><i class="fas fa-house-user fa-fw me-1 me-md-0 ms-0 ms-md-1"></i>' + item.agency + '</div>';
 
-            var leftSide = '<div class="col col-12 col-md-6">' + person_in_chargeEl + phone_numberEl + '</div>'
-            var rightSide = '<div class="col col-12 col-md-6">' + emailEl + agencyEl + '</div>'
-            var card = '<div class="row">' + leftSide + rightSide + '</div>'
+            var startAndEndDate = '<div class="d-flex justify-content-start align-items-center"><i class="fas fa-calendar-alt fa-fw me-1"></i><span>' + dayjs(item.start_date).format('D MMMM YYYY') + '</span><i class="fas fa-minus fa-fw mx-1"></i><span>' + dayjs(item.end_date).format('D MMMM YYYY') + '</span></div>'
+            var submissionDate = '<div class="d-flex justify-content-start align-items-center"><i class="fas fa-clock fa-fw me-1"></i><span>' + dayjs(item.created_at).format('D MMMM YYYY - HH:mm:ss') + '</span></div>';
+
+            var leftSide = '<div class="col col-12 col-md-6 col-xl-4"><div class="d-block">' + person_in_chargeEl + phone_numberEl + '</div></div>';
+            var rightSide = '<div class="col col-12 col-md-6 col-xl-4"><div class="d-block">' + emailEl + agencyEl + '</div></div>';
+            var rightSideHidden = '<div class="d-none d-xl-block col col-xl-4"><div class="d-block">' + startAndEndDate + submissionDate + '</div></div>';
+            var card = '<div class="row">' + leftSide + rightSide + rightSideHidden + '</div>';
 
             var buttonLink = aOpen + card + aClose;
 

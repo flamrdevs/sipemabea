@@ -11,8 +11,6 @@
 |
 */
 
-Route::view('/color', 'color')->name('color');
-
 // Guest Route
 Route::group(
     [
@@ -20,8 +18,6 @@ Route::group(
     ],
     function() {
         Route::view('/', 'welcome')->name('welcome');
-        // Route::view('/about', 'about')->name('about');
-        // Route::view('/contact', 'contact')->name('contact');
 
         Route::get('/register', 'AuthController@showRegisterForm')->name('register');
         Route::post('/register', 'AuthController@register');
@@ -87,7 +83,8 @@ Route::group(
                     Route::name('.approvements')->group(function() {
                         Route::get('/', 'ApprovementController@admin_index');
                         Route::get('/{id}', 'ApprovementController@admin_show')->name('.show');
-                        Route::put('/resend-approval-mail/{id}', 'ApprovementController@admin_resendApprovalMail')->name('.resend_approval_mail');
+                        Route::get('/preview-mail/{id}', 'ApprovementController@admin_previewApprovalMail')->name('.mail-preview');
+                        Route::put('/send-mail/{id}', 'ApprovementController@admin_sendApprovalMail')->name('.mail_send');
                     });
                 });
             
@@ -96,6 +93,7 @@ Route::group(
                 function () {
                     Route::name('.submissions')->group(function() {
                         Route::get('/', 'SubmissionController@admin_index');
+                        Route::get('/{id}', 'SubmissionController@admin_show')->name('.show');
                         Route::get('/{id}', 'SubmissionController@admin_show')->name('.show');
                         Route::put('/{id}', 'SubmissionController@admin_update')->name('.update');
                     });

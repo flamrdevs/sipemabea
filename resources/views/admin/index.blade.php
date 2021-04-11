@@ -76,7 +76,9 @@
     </div>
 
     @php
-      $submissions = array_collapse([$data['processed'], $data['unread']])
+      $submissions = collect(array_collapse([$data['processed'], $data['unread']]))->filter(function ($submission) {
+        return $submission['created_at']->format('dmy') === Carbon::now()->format('dmy');
+      });
     @endphp
     @if(count($submissions) > 0)
       <div class="row">
@@ -88,50 +90,50 @@
             <div>
               <ul class="list-group list-group-flush">
                 @foreach ($submissions as $processed)
-                  @if ($processed['created_at']->format('dmy') == Carbon::now()->format('dmy'))
-                    <li class="list-group-item bg-transparent p-1 p-md-3">
-                      <a class="btn btn-outline-primary btn-sm w-100 border-0 text-dark styled-hover-color-gray-100 styled-hover-sm-swing-ver" href="{{ route('admin.submissions.show', ['id' => $processed['id']]) }}">
-                        <div class="row">
-                          <div class="col col-12 col-md-6 col-lg-4">
-                            <div class="d-block">
-                              <div class="d-flex justify-content-start align-items-center fw-bold">
-                                <i class="fas fa-user fa-fw me-1"></i>
-                                {{ $processed['person_in_charge'] }}
-                              </div>
-                              <div class="d-flex justify-content-start align-items-center">
-                                <i class="fas fa-phone fa-fw me-1"></i>
-                                {{ $processed['phone_number'] }}
-                              </div>
+                  <li class="list-group-item bg-transparent p-1 p-md-3">
+                    <a class="btn btn-outline-primary btn-sm w-100 border-0 text-dark styled-hover-color-gray-100 styled-hover-sm-swing-ver" href="{{ route('admin.submissions.show', ['id' => $processed['id']]) }}">
+                      <div class="row">
+                        <div class="col col-12 col-md-6 col-xl-4">
+                          <div class="d-block">
+                            <div class="d-flex justify-content-start align-items-center fw-bold">
+                              <i class="fas fa-user fa-fw me-1"></i>
+                              {{ $processed['person_in_charge'] }}
                             </div>
-                          </div>
-                          <div class="col col-12 col-md-6 col-lg-4">
-                            <div class="d-block">
-                              <div class="d-flex flex-md-row-reverse justify-content-md-start align-items-center">
-                                <i class="fas fa-envelope fa-fw me-1 me-md-0 ms-0 ms-md-1"></i>
-                                {{ $processed['email'] }}
-                              </div>
-                              <div class="d-flex flex-md-row-reverse justify-content-md-start align-items-center">
-                                <i class="fas fa-house-user fa-fw me-1 me-md-0 ms-0 ms-md-1"></i>
-                                {{ $processed['agency'] }}
-                              </div>
-                            </div>
-                          </div>
-                          <div class="d-none d-lg-block col col-12 col-lg-4">
-                            <div class="d-block">
-                              <div class="d-flex justify-content-start align-items-center">
-                                <i class="fas fa-calendar-alt fa-fw me-1"></i>
-                                <span>{{ Carbon::parse($processed['start_date'])->format('d-m-Y') }}</span>
-                              </div>
-                              <div class="d-flex justify-content-start align-items-center">
-                                <i class="fas fa-clock fa-fw me-1"></i>
-                                <span>{{ $processed['created_at']->format('H:i:s') }}</span>
-                              </div>
+                            <div class="d-flex justify-content-start align-items-center">
+                              <i class="fas fa-phone fa-fw me-1"></i>
+                              {{ $processed['phone_number'] }}
                             </div>
                           </div>
                         </div>
-                      </a>
-                    </li>
-                  @endif
+                        <div class="col col-12 col-md-6 col-xl-4">
+                          <div class="d-block">
+                            <div class="d-flex flex-md-row-reverse justify-content-md-start align-items-center">
+                              <i class="fas fa-envelope fa-fw me-1 me-md-0 ms-0 ms-md-1"></i>
+                              {{ $processed['email'] }}
+                            </div>
+                            <div class="d-flex flex-md-row-reverse justify-content-md-start align-items-center">
+                              <i class="fas fa-house-user fa-fw me-1 me-md-0 ms-0 ms-md-1"></i>
+                              {{ $processed['agency'] }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="d-none d-xl-block col col-xl-4">
+                          <div class="d-block">
+                            <div class="d-flex justify-content-start align-items-center">
+                              <i class="fas fa-calendar-alt fa-fw me-1"></i>
+                              <span>{{ $processed['start_date']->isoFormat('DD MMMM Y') }}</span>
+                              <i class="fas fa-minus fa-fw mx-1"></i>
+                              <span>{{ $processed['end_date']->isoFormat('DD MMMM Y') }}</span>
+                            </div>
+                            <div class="d-flex justify-content-start align-items-center">
+                              <i class="fas fa-clock fa-fw me-1"></i>
+                              <span>{{ $processed['created_at']->format('H:i:s') }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
                 @endforeach
               </ul>
             </div>

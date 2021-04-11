@@ -23,7 +23,8 @@
           <input type="email" class="form-control" id="email" value="{{ $user['email'] }}" disabled>
         </div>
   
-        <div class="my-3 p-1"></div>
+        {{-- Spacer --}}
+        <div class="mb-3 p-1 p-md-2 p-lg-3"></div>
   
         <div class="mb-1">
           <div class="row">

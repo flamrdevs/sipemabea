@@ -16,10 +16,11 @@
           @csrf
           @method('PUT')
           
-          <div class="d-grid gap-2 mb-3">
+          <div class="d-grid gap-2 mb-4">
             <h2 class="text-center">@lang('typography.update-password')</h2>
           </div>
-  
+          
+          {{-- Current Password --}}
           <div class="mb-3">
             <label for="current-password" class="form-label">@lang('typography.current-password')</label>
             <input type="password" class="form-control @if(Session::has('failure-current-password')) is-invalid @endif @error('current-password') is-invalid @enderror" id="current-password" name="current-password" value="{{ old('current-password') }}" aria-describedby="current-password-feedback">
@@ -29,7 +30,8 @@
               </div>
             @enderror
           </div>
-  
+          
+          {{-- New Password --}}
           <div class="mb-3">
             <label for="new-password" class="form-label">@lang('typography.new-password')</label>
             <input type="password" class="form-control @error('new-password') is-invalid @enderror" id="new-password" name="new-password" value="{{ old('new-password') }}" aria-describedby="new-password-feedback">
@@ -39,7 +41,8 @@
               </div>
             @enderror
           </div>
-  
+          
+          {{-- New Password Confirmation --}}
           <div class="mb-3">
             <label for="new-password-confirmation" class="form-label">@lang('typography.new-password-confirmation')</label>
             <input type="password" class="form-control @error('new-password-confirmation') is-invalid @enderror" id="new-password-confirmation" name="new-password-confirmation" aria-describedby="new-password-confirmation-feedback">
@@ -50,9 +53,11 @@
             @enderror
           </div>
   
-          <div class="my-3 p-1"></div>
+          {{-- Spacer --}}
+          <div class="mb-3 p-1 p-md-2 p-lg-3"></div>
   
           <div class="mb-1">
+            {{-- Submit Button --}}
             <div class="row">
               <div class="col col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 col-xl-2 offset-xl-5">
                 <div class="d-grid gap-2">

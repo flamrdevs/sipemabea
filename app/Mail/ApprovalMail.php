@@ -37,8 +37,7 @@ class ApprovalMail extends Mailable
         return $this->view('mail.approval')->with([
             'name' => $this->data['name'],
             'from' => $this->data['from'],
-            'attachmentLink' => $this->data['attachmentLink'],
-            'type' => $this->data['type'],
+            'note' => $this->data['note'],
         ])->attachFromStorage($this->data['attachmentLink'], Helper::getOriginalFileName($this->data['attachmentLink']), [
             'mime' => 'application/pdf'
         ]);

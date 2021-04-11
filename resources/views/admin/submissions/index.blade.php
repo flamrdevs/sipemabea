@@ -13,18 +13,18 @@
 
       <div class="d-flex justify-content-between mb-3 p-2">
         <div class="ms-auto">
-          <label for="date-filter-action" class="d-block mb-1">@lang('typography.start-date')</label>
+          <label for="month-filter-action" class="d-block mb-1 fw-bold">@lang('typography.month')</label>
           <div class="d-flex justify-content-between border border-3 border-dark rounded">
-            @isset($dateQuery)
+            @isset($monthQuery)
               <div class="d-flex align-items-center ms-1">
                 <a class="btn btn-outline-dark btn-sm border-0 styled-focus-box-shadow-none" href="{{ route('admin.submissions') }}">
                   <i class="fas fa-eraser fa-fw"></i>
                 </a>
               </div>
             @endisset
-            <form id="date-filter-form" action="{{ route('admin.submissions') }}" method="GET">
+            <form id="month-filter-form" action="{{ route('admin.submissions') }}" method="GET">
               <div>
-                <input type="date" class="form-control border-0 styled-focus-box-shadow-none" id="date-filter-action" name="date" @isset($dateQuery) value="{{ Carbon::parse($dateQuery)->format('Y-m-d') }}" @endisset>
+                <input type="month" class="form-control border-0 styled-focus-box-shadow-none" id="month-filter-action" name="month" @isset($monthQuery) value="{{ Carbon::parse($monthQuery)->format('Y-m') }}" @endisset>
               </div>
             </form>
           </div>
@@ -36,11 +36,12 @@
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th class="text-nowrap" scope="col">@lang('typography.email')</th>
               <th class="text-nowrap" scope="col">@lang('typography.person-in-charge')</th>
               <th class="text-nowrap" scope="col">@lang('typography.agency')</th>
               <th class="text-nowrap" scope="col">@lang('typography.phone-number')</th>
+              <th class="text-nowrap" scope="col">@lang('typography.submission-date')</th>
               <th class="text-nowrap" scope="col">@lang('typography.start-date')</th>
+              <th class="text-nowrap" scope="col">@lang('typography.end-date')</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -48,11 +49,12 @@
             @forelse ($submissions as $submission)
               <tr>
                 <th scope="row">{{ $loop->iteration }}</th>
-                <td>{{ $submission['email'] }}</td>
                 <td>{{ $submission['person_in_charge'] }}</td>
                 <td>{{ $submission['agency'] }}</td>
                 <td>{{ $submission['phone_number'] }}</td>
-                <td>{{ date('d-m-Y', strtotime($submission['start_date'])) }}</td>
+                <td>{{ $submission['created_at']->isoFormat('DD MMMM Y') }}</td>
+                <td>{{ $submission['start_date']->isoFormat('DD MMMM Y') }}</td>
+                <td>{{ $submission['end_date']->isoFormat('DD MMMM Y') }}</td>
                 <td style="width: 4rem">
                   <div class="d-flex gap-2 justify-content-between">
                     @if($submission['status'] === 'processed')
@@ -99,9 +101,9 @@
 @push('script')
   <script>
     $(document).ready(function () {
-      $('#date-filter-action').change(function (e) { 
+      $('#month-filter-action').change(function (e) { 
         e.preventDefault();
-        $('#date-filter-form').submit();
+        $('#month-filter-form').submit();
       });
     });
   </script>

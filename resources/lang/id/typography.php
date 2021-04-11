@@ -24,6 +24,7 @@ return [
     'do-not-have-an-account-yet' => 'Belum punya akun ?',
 
     // E
+    'end-date' => 'Tanggal selesai',
     'email' => 'Email',
     'email-address' => 'Alamat email',
 
@@ -39,20 +40,25 @@ return [
     'links' => 'Tautan',
     'login' => 'Masuk',
 
+    // M
+    'member' => 'Anggota',
+    'month' => 'Bulan',
+
     // N
     'name' => 'Nama',
     'new' => 'Baru',
     'new-password' => 'Kata sandi baru',
     'new-password-confirmation' => 'Konfirmasi kata sandi baru',
     'note' => 'Keterangan',
-    'no-letter' => 'No surat',
     'no-data' => 'Tidak ada data',
+    'no-name' => 'Tanpa nama',
 
     // P
     'password' => 'Kata sandi',
     'password-confirmation' => 'Konfirmasi kata sandi',
     'person-in-charge' => 'Penanggung jawab',
     'phone-number' => 'No telepon',
+    'preview-email' => 'Pratinjau email',
     'processed' => 'Diproses',
     'proposal-file' => 'File proposal',
 
@@ -65,6 +71,13 @@ return [
     'start-date' => 'Tanggal mulai',
     'status' => 'Status',
     'submission' => 'Pengajuan',
+    'submission-date' => 'Tanggal pengajuan',
+
+    // T
+    'template' => 'Template',
+    'template-email' => 'Template email',
+    'template-email-approval-accepted' => 'Template email persetujuan diterima',
+    'template-email-approval-rejected' => 'Template email persetujuan ditolak',
 
     // U
     'ui-component' => 'Komponen antar muka',

@@ -20,10 +20,12 @@ class CreateSubmissionsTable extends Migration
 
             $table->string('email', 128);
             $table->string('person_in_charge', 64);
+            $table->string('members', 2048);
             $table->string('phone_number', 32);
             $table->string('agency', 128);
             $table->text('goal', 2048);
             $table->date('start_date');
+            $table->date('end_date');
 
             $table->string('proposal_link', 256);
             $table->string('cover_letter_link', 256);

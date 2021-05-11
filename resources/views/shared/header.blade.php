@@ -33,7 +33,7 @@
 @endpush
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" aria-label="Main navigation">
-  <div class="container-fluid">
+  <div class="container">
     <a class="navbar-brand" href="{{ route('welcome') }}">
       <img src="{{ asset('images/logo.png') }}" height="30" alt="" loading="lazy" />
     </a>

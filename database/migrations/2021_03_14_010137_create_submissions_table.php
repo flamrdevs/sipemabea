@@ -30,8 +30,9 @@ class CreateSubmissionsTable extends Migration
             $table->string('proposal_link', 256);
             $table->string('cover_letter_link', 256);
             
-            $table->string('attachment_link', 256)->nullable();
+            $table->string('task')->nullable();
             $table->text('note', 2048)->nullable();
+            $table->string('attachment_link', 256)->nullable();
             $table->enum('status', ['processed', 'accepted', 'rejected'])->nullable();
             $table->boolean('email_sent')->nullable()->default(false);
             

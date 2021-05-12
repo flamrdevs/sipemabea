@@ -74,6 +74,7 @@ return [
     'submission-date' => 'Tanggal pengajuan',
 
     // T
+    'task' => 'Tugas',
     'template' => 'Template',
     'template-email' => 'Template email',
     'template-email-approval-accepted' => 'Template email persetujuan diterima',

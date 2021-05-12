@@ -76,6 +76,7 @@ class SubmissionController extends Controller
         $submission = Submission::where('id', $id)->where(function ($query) {
             $query->where('email_sent', false)->orWhereNull('email_sent');
         })->firstOrFail();
+        $submission['task'] = $request['task'];
         $submission['note'] = $request['note'];
         $submission['attachment_link'] = $attachmentLinkPath;
         $submission['status'] = $request['status'];

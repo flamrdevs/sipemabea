@@ -182,13 +182,23 @@
         </div>
 
         <div class="row mb-3">
-          {{-- Note --}}
           <div class="col col-12 col-xxl-7 mb-3 mb-xxl-0">
-            <label for="note" class="form-label">
-              <i class="fas fa-sticky-note me-1"></i>
-              @lang('typography.note')
-            </label>
-            <textarea class="form-control" id="note" rows="12" disabled>{{ $submission['note'] }}</textarea>
+            {{-- Task --}}
+            <div class="mb-3">
+              <label for="task" class="form-label">
+                <i class="fas fa-tasks me-1"></i>
+                @lang('typography.task')
+              </label>
+              <textarea class="form-control" id="task" name="task" rows="4" disabled>{{ $submission['task'] }}</textarea>
+            </div>
+            {{-- Note --}}
+            <div>
+              <label for="note" class="form-label">
+                <i class="fas fa-sticky-note me-1"></i>
+                @lang('typography.note')
+              </label>
+              <textarea class="form-control" id="note" rows="12" disabled>{{ $submission['note'] }}</textarea>
+            </div>
           </div>
           <div class="col col-12 col-xxl-5">
             <div class="row">

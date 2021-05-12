@@ -163,18 +163,33 @@
           </div>
 
           <div class="row mb-3">
-            {{-- Note --}}
             <div class="col col-12 col-xxl-7 mb-3 mb-xxl-0">
-              <label for="note" class="form-label">
-                <i class="fas fa-sticky-note me-1"></i>
-                @lang('typography.note')
-              </label>
-              <textarea class="form-control @error('note') is-invalid @enderror" id="note" name="note" rows="12" aria-describedby="note-feedback">{{ old('note') }}</textarea>
-              @error('note')
-                <div id="note-feedback" class="invalid-feedback">
-                  {{ $errors->first('note') }}
-                </div>
-              @enderror
+              {{-- Task --}}
+              <div class="mb-3">
+                <label for="task" class="form-label">
+                  <i class="fas fa-tasks me-1"></i>
+                  @lang('typography.task')
+                </label>
+                <textarea class="form-control @error('task') is-invalid @enderror" id="task" name="task" rows="4" aria-describedby="task-feedback">{{ old('task') }}</textarea>
+                @error('task')
+                  <div id="task-feedback" class="invalid-feedback">
+                    {{ $errors->first('task') }}
+                  </div>
+                @enderror
+              </div>
+              {{-- Note --}}
+              <div>
+                <label for="note" class="form-label">
+                  <i class="fas fa-sticky-note me-1"></i>
+                  @lang('typography.note')
+                </label>
+                <textarea class="form-control @error('note') is-invalid @enderror" id="note" name="note" rows="12" aria-describedby="note-feedback">{{ old('note') }}</textarea>
+                @error('note')
+                  <div id="note-feedback" class="invalid-feedback">
+                    {{ $errors->first('note') }}
+                  </div>
+                @enderror
+              </div>
             </div>
             <div class="col col-12 col-xxl-5">
               <div class="row">

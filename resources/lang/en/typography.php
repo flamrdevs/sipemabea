@@ -74,6 +74,7 @@ return [
     'submission-date' => 'Submission date',
 
     // T
+    'task' => 'Task',
     'template' => 'Template',
     'template-email' => 'Template email',
     'template-email-approval-accepted' => 'Template accepted approval email',
